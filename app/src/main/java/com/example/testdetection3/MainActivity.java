@@ -1,17 +1,5 @@
 package com.example.testdetection3;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.CameraX;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageAnalysisConfig;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.core.Preview;
-import androidx.camera.core.PreviewConfig;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -33,6 +21,18 @@ import android.util.Size;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.CameraX;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageAnalysisConfig;
+import androidx.camera.core.ImageProxy;
+import androidx.camera.core.Preview;
+import androidx.camera.core.PreviewConfig;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.testdetection3.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         addImage();
     }
 
-    int img[] = new int[] {R.drawable.img_son_tung, R.drawable.img_chipu};
-    String name[] = new String[] {"Sơn Tùng", "Chi pu"};
+    int img[] = new int[] {R.drawable.img_son_tung, R.drawable.img_chipu, R.drawable.img_hoang, R.drawable.img_r};
+    String name[] = new String[] {"Sơn Tùng", "Chi pu", "Hoàng", "Rừng núi"};
 
     private void addImage() {
         for(int i = 0; i < img.length; i++) {
@@ -225,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
                                     Bitmap scaled = getResizedBitmap(cropped_face, 112, 112);
 
                                     if(start) {
+//                                        binding.imageView.setImageBitmap(firebaseVisionImage.getBitmap());
                                         recognizeImage(scaled, b, s); //Send scaled bitmap to create face embeddings.
 //                                                    System.out.println(boundingBox);
                                     }
@@ -321,23 +322,23 @@ public class MainActivity extends AppCompatActivity {
                 distance_local = nearest.get(0).second;
 //                if (developerMode)
 //                {
-//                if(distance_local<distance) //If distance between Closest found face is more than 1.000 ,then output UNKNOWN face.
-//                    binding.textView.setText("Nearest: "+name +"\nDist: "+ String.format("%.3f",distance_local)+"\n2nd Nearest: "+nearest.get(1).first +"\nDist: "+ String.format("%.3f",nearest.get(1).second));
-//                else
-//                    binding.textView.setText("Unknown "+"\nDist: "+String.format("%.3f",distance_local)+"\nNearest: "+name +"\nDist: "+ String.format("%.3f",distance_local)+"\n2nd Nearest: "+nearest.get(1).first +"\nDist: "+ String.format("%.3f",nearest.get(1).second));
+                if(distance_local<distance) //If distance between Closest found face is more than 1.000 ,then output UNKNOWN face.
+                    binding.textView.setText("Nearest: "+name +"\nDist: "+ String.format("%.3f",distance_local)+"\n2nd Nearest: "+nearest.get(1).first +"\nDist: "+ String.format("%.3f",nearest.get(1).second));
+                else
+                    binding.textView.setText("Unknown "+"\nDist: "+String.format("%.3f",distance_local)+"\nNearest: "+name +"\nDist: "+ String.format("%.3f",distance_local)+"\n2nd Nearest: "+nearest.get(1).first +"\nDist: "+ String.format("%.3f",nearest.get(1).second));
 
 //                    System.out.println("nearest: " + name + " - distance: " + distance_local);
 //                }
 //                else
 //                {
 
-                    if(distance_local<distance) { //If distance between Closest found face is more than 1.000 ,then output UNKNOWN face.
-                        binding.imageView.setVisibility(View.VISIBLE);
-                        binding.textView.setText(name);
-                    } else {
-                        binding.textView.setText("I don't know him/her");
-//                    System.out.println("nearest: " + name + " - distance: " + distance_local);
-                    }
+//                if(distance_local<distance) { //If distance between Closest found face is more than 1.000 ,then output UNKNOWN face.
+//                    binding.imageView.setVisibility(View.VISIBLE);
+//                    binding.textView.setText(name);
+//                } else {
+//                    binding.textView.setText("I don't know him/her");
+////                    System.out.println("nearest: " + name + " - distance: " + distance_local);
+//                }
             }
         }
 
